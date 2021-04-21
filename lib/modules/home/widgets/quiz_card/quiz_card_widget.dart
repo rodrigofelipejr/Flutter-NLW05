@@ -2,6 +2,7 @@ import 'package:devquiz/core/core.dart';
 import 'package:devquiz/shared/models/quiz/quiz_models.dart';
 import 'package:devquiz/shared/widgets/linear_progress_indicator/linear_progress_indicator_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class QuizCardWidget extends StatelessWidget {
   final QuizModel quiz;
@@ -34,7 +35,7 @@ class QuizCardWidget extends StatelessWidget {
           Container(
             height: 40.0,
             width: 40.0,
-            child: Image.asset(
+            child: SvgPicture.asset(
               AppImages.data,
               fit: BoxFit.contain,
             ),

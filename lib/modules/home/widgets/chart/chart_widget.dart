@@ -6,7 +6,7 @@ class ChartWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 88,
-      width: 88, 
+      width: 88,
       child: Stack(
         alignment: Alignment.center,
         children: [
