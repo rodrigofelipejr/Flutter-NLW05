@@ -1,30 +1,39 @@
 import 'package:devquiz/core/core.dart';
 import 'package:devquiz/modules/challenge/widgets/answer/answer_widget.dart';
+import 'package:devquiz/shared/models/answers/answers_model.dart';
+import 'package:devquiz/shared/models/question/question_model.dart';
 import 'package:flutter/material.dart';
 
-class QuizWidget extends StatelessWidget {
-  final String title;
+class QuizWidget extends StatefulWidget {
+  final QuestionModel question;
 
-  const QuizWidget({Key? key, required this.title}) : super(key: key);
+  const QuizWidget({Key? key, required this.question}) : super(key: key);
+
+  @override
+  _QuizWidgetState createState() => _QuizWidgetState();
+}
+
+class _QuizWidgetState extends State<QuizWidget> {
+  int selectedIndex = -1;
+  AnswersModel answer(int index) => widget.question.answers[index];
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: AppTextStyles.heading),
-          SizedBox(height: 24.0),
-          AnswerWidget(
-            title: "Kit de desenvolvimento de interface de usuário",
-            isSelected: true,
-            isRight: false,
-          ),
-          AnswerWidget(
-            title: "Kit de desenvolvimento de interface de usuário",
-            isSelected: true,
-            isRight: true,
-          ),
-          AnswerWidget(title: "Kit de desenvolvimento de interface de usuário"),
+          Text(widget.question.title, style: AppTextStyles.heading),
+          SizedBox(height: 16.0),
+          for (var i = 0; i < widget.question.answers.length; i++)
+            AnswerWidget(
+              answer: answer(i),
+              isSelected: selectedIndex == i,
+              onTap: () {
+                selectedIndex = i;
+                setState(() {});
+              },
+            ),
         ],
       ),
     );

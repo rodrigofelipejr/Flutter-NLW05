@@ -2,11 +2,11 @@ import 'dart:convert';
 
 import 'package:devquiz/shared/models/answers/answers_model.dart';
 
-class Question {
+class QuestionModel {
   final String title;
-  final List<Answers> answers;
+  final List<AnswersModel> answers;
 
-  Question({
+  QuestionModel({
     required this.title,
     required this.answers,
   }) : assert(answers.length == 4);
@@ -14,18 +14,18 @@ class Question {
   Map<String, dynamic> toMap() {
     return {
       'title': title,
-      'answers': answers?.map((x) => x.toMap())?.toList(),
+      'answers': answers.map((x) => x.toMap()).toList(),
     };
   }
 
-  factory Question.fromMap(Map<String, dynamic> map) {
-    return Question(
+  factory QuestionModel.fromMap(Map<String, dynamic> map) {
+    return QuestionModel(
       title: map['title'],
-      answers: List<Answers>.from(map['answers']?.map((x) => Answers.fromMap(x))),
+      answers: List<AnswersModel>.from(map['answers']?.map((x) => AnswersModel.fromMap(x))),
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory Question.fromJson(String source) => Question.fromMap(json.decode(source));
+  factory QuestionModel.fromJson(String source) => QuestionModel.fromMap(json.decode(source));
 }

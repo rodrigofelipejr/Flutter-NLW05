@@ -1,4 +1,5 @@
 import 'package:devquiz/core/core.dart';
+import 'package:devquiz/modules/challenge/challenge_page.dart';
 import 'package:devquiz/modules/home/home_controller.dart';
 import 'package:devquiz/modules/home/home_state.dart';
 import 'package:devquiz/modules/home/widgets/appbar/app_bar_widget.dart';
@@ -82,6 +83,16 @@ class _HomePageState extends State<HomePage> {
                 itemBuilder: (context, index) {
                   return QuizCardWidget(
                     quiz: controller.quizzes![index],
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => ChallengePage(
+                            questions: controller.quizzes![index].questions,
+                          ),
+                        ),
+                      );
+                    },
                   );
                 },
                 shrinkWrap: true,

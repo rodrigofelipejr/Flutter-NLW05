@@ -27,22 +27,22 @@
         ]
       },
       {
-        "title": "O que o Flutter faz em sua totalidade?",
+        "title": "Qual empresa esta por trás do framework Flutter?",
         "answers": [
           {
-            "title": "Kit de desenvolvimento de interface de usuário",
+            "title": "Amazon",
             "isRight": false
           },
           {
-            "title": "Possibilita a criação de aplicativos compilados nativamente",
+            "title": "Google",
             "isRight": true
           },
           {
-            "title": "Acho que é uma marca de café do Himalaia",
+            "title": "Dell",
             "isRight": false
           },
           {
-            "title": "Possibilita a criação de desktops que são muito incríveis",
+            "title": "Microsoft",
             "isRight": false
           }
         ]

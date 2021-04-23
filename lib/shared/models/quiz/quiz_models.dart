@@ -16,7 +16,7 @@ extension LevelExt on Level {
 
 class QuizModel {
   final String title;
-  final List<Question> questions;
+  final List<QuestionModel> questions;
   final int questionsAnswered;
   final String image;
   final Level level;
@@ -35,7 +35,7 @@ class QuizModel {
   Map<String, dynamic> toMap() {
     return {
       'title': title,
-      'questions': questions?.map((x) => x.toMap())?.toList(),
+      'questions': questions.map((x) => x.toMap()).toList(),
       'questionsAnswered': questionsAnswered,
       'image': image,
       'level': level.parse,
@@ -45,7 +45,7 @@ class QuizModel {
   factory QuizModel.fromMap(Map<String, dynamic> map) {
     return QuizModel(
         title: map['title'],
-        questions: List<Question>.from(map['questions']?.map((x) => Question.fromMap(x))),
+        questions: List<QuestionModel>.from(map['questions']?.map((x) => QuestionModel.fromMap(x))),
         questionsAnswered: map['questionsAnswered'],
         image: map['image'],
         level: map['level'].toString().parse);

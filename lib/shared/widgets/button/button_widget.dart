@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 class ButtonWidget extends StatelessWidget {
   final String label;
   final ButtonType type;
+  final VoidCallback? onPressed;
 
   ButtonWidget({
     Key? key,
     required this.label,
+    required this.onPressed,
     this.type = ButtonType.primary,
   }) : super(key: key);
 
@@ -32,7 +34,7 @@ class ButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: TextButton(
-        onPressed: () {},
+        onPressed: onPressed,
         child: Text(label),
         style: TextButton.styleFrom(
           primary: textColor,
