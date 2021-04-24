@@ -1,14 +1,20 @@
 import 'package:devquiz/modules/challenge/challenge_controller.dart';
 import 'package:devquiz/modules/challenge/widgets/question_indicator/question_indicator_widget.dart';
 import 'package:devquiz/modules/challenge/widgets/quiz/quiz_widget.dart';
+import 'package:devquiz/modules/result/result_page.dart';
 import 'package:devquiz/shared/models/question/question_model.dart';
 import 'package:devquiz/shared/widgets/button/button_widget.dart';
 import 'package:flutter/material.dart';
 
 class ChallengePage extends StatefulWidget {
   final List<QuestionModel> questions;
+  final String quizTitle;
 
-  const ChallengePage({Key? key, required this.questions}) : super(key: key);
+  const ChallengePage({
+    Key? key,
+    required this.questions,
+    required this.quizTitle,
+  }) : super(key: key);
   @override
   _ChallengePageState createState() => _ChallengePageState();
 }
@@ -31,6 +37,11 @@ class _ChallengePageState extends State<ChallengePage> {
         duration: Duration(milliseconds: 250),
         curve: Curves.linear,
       );
+  }
+
+  void onSelected(bool value) {
+    if (value) controller.totalRightAnswers++;
+    nextPage();
   }
 
   @override
@@ -57,7 +68,10 @@ class _ChallengePageState extends State<ChallengePage> {
         children: widget.questions
             .map((e) => Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: QuizWidget(question: e),
+                  child: QuizWidget(
+                    question: e,
+                    onSelected: onSelected,
+                  ),
                 ))
             .toList(),
       ),
@@ -69,14 +83,25 @@ class _ChallengePageState extends State<ChallengePage> {
               ButtonWidget(
                 label: "Pular",
                 onPressed: isLastQuestion ? null : () => nextPage(),
-                type: ButtonType.secondary,
+                type: ButtonType.white,
               ),
               SizedBox(width: 8.0),
               ValueListenableBuilder<int>(
                 valueListenable: controller.currentQuestionNotifier,
                 builder: (context, value, _) => ButtonWidget(
                   label: "Confirmar",
-                  onPressed: value == widget.questions.length ? () => Navigator.pop(context) : null,
+                  onPressed: value == widget.questions.length
+                      ? () => Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ResultPage(
+                                label: widget.quizTitle,
+                                totalRightAnswers: controller.totalRightAnswers,
+                                totalQuestions: widget.questions.length,
+                              ),
+                            ),
+                          )
+                      : null,
                 ),
               ),
             ],

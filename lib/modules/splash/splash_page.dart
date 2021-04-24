@@ -34,10 +34,10 @@ class _SplashPageState extends State<SplashPage> {
           child: Stack(
             alignment: Alignment.center,
             children: [
-              // SvgPicture.asset(
-              //   AppImages.interrogation,
-              //   fit: BoxFit.cover,
-              // ),
+              SvgPicture.asset(
+                AppImages.interrogation,
+                fit: BoxFit.cover,
+              ),
               SvgPicture.asset(
                 AppImages.logo,
                 fit: BoxFit.cover,

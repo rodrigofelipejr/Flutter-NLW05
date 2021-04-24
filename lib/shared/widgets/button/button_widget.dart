@@ -1,6 +1,8 @@
 import 'package:devquiz/core/core.dart';
 import 'package:flutter/material.dart';
 
+enum ButtonType { green, white, purple }
+
 class ButtonWidget extends StatelessWidget {
   final String label;
   final ButtonType type;
@@ -10,19 +12,24 @@ class ButtonWidget extends StatelessWidget {
     Key? key,
     required this.label,
     required this.onPressed,
-    this.type = ButtonType.primary,
+    this.type = ButtonType.green,
   }) : super(key: key);
 
   final config = {
-    ButtonType.primary: {
+    ButtonType.green: {
       "backgroundColor": AppColors.darkGreen,
       "textColor": AppColors.white,
       "borderColor": AppColors.darkGreen,
     },
-    ButtonType.secondary: {
+    ButtonType.white: {
       "backgroundColor": AppColors.white,
       "textColor": AppColors.grey,
       "borderColor": AppColors.border,
+    },
+    ButtonType.purple: {
+      "backgroundColor": AppColors.purple,
+      "textColor": AppColors.white,
+      "borderColor": AppColors.purple,
     },
   };
 
@@ -41,7 +48,7 @@ class ButtonWidget extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 14.0),
           elevation: 0,
           side: BorderSide(color: borderColor),
-          textStyle: AppTextStyles.bodyWhite15,
+          textStyle: AppTextStyles.bodyWhite15Semi,
           backgroundColor: backgroundColor,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
@@ -53,5 +60,3 @@ class ButtonWidget extends StatelessWidget {
     );
   }
 }
-
-enum ButtonType { primary, secondary }

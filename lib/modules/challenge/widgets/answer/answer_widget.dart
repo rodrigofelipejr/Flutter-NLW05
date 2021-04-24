@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class AnswerWidget extends StatelessWidget {
   final AnswersModel answer;
   final bool isSelected;
-  final VoidCallback onTap;
+  final ValueChanged<bool> onTap;
 
   const AnswerWidget({
     Key? key,
@@ -24,7 +24,7 @@ class AnswerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: () => onTap(answer.isRight),
       child: Container(
         padding: const EdgeInsets.all(16.0),
         margin: const EdgeInsets.symmetric(vertical: 8.0),

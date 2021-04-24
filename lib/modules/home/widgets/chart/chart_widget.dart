@@ -1,30 +1,61 @@
 import 'package:devquiz/core/core.dart';
 import 'package:flutter/material.dart';
 
-class ChartWidget extends StatelessWidget {
+class ChartWidget extends StatefulWidget {
+  final double percent;
+
+  const ChartWidget({Key? key, required this.percent}) : super(key: key);
+
+  @override
+  _ChartWidgetState createState() => _ChartWidgetState();
+}
+
+class _ChartWidgetState extends State<ChartWidget> with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<double> _animation;
+
+  void _initAnimation() {
+    _animationController = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 2),
+    );
+
+    _animation = Tween<double>(begin: 0.0, end: widget.percent).animate(_animationController);
+    _animationController.forward();
+  }
+
+  @override
+  void initState() {
+    _initAnimation();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 88,
       width: 88,
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          Container(
-            height: 88,
-            width: 88,
-            child: CircularProgressIndicator(
-              strokeWidth: 10.0,
-              backgroundColor: AppColors.chartSecondary,
-              valueColor: AlwaysStoppedAnimation<Color>(AppColors.chartPrimary),
-              value: 0.75,
+      child: AnimatedBuilder(
+        animation: _animation,
+        builder: (context, _) => Stack(
+          alignment: Alignment.center,
+          children: [
+            Container(
+              height: 88,
+              width: 88,
+              child: CircularProgressIndicator(
+                strokeWidth: 10.0,
+                value: _animation.value / 100,
+                backgroundColor: AppColors.chartSecondary,
+                valueColor: AlwaysStoppedAnimation<Color>(AppColors.chartPrimary),
+              ),
             ),
-          ),
-          Text(
-            "75%",
-            style: AppTextStyles.heading,
-          )
-        ],
+            Text(
+              "${(_animation.value).toInt()}%",
+              style: AppTextStyles.heading,
+            ),
+          ],
+        ),
       ),
     );
   }
